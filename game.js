@@ -379,6 +379,8 @@
     input.active=false;input.id=null;input.dx=0;input.dy=0;ui.joystickKnob.style.transform='translate(0,0)';ui.joystickBase.classList.remove('active');
   }
 
+  function blockBrowserGesture(event) { event.preventDefault(); }
+
   ui.joystickZone.addEventListener('pointerdown', handlePointerDown);
   ui.joystickZone.addEventListener('pointermove', handlePointerMove);
   ui.joystickZone.addEventListener('pointerup', releaseInput);
@@ -391,8 +393,10 @@
   $('#pause-btn').addEventListener('click', pauseGame);
   $('#resume-btn').addEventListener('click', resumeGame);
   document.addEventListener('visibilitychange', () => { if (document.hidden && state === 'playing') pauseGame(); });
+  ['contextmenu', 'selectstart', 'copy', 'cut', 'paste', 'dragstart'].forEach((eventName) => {
+    document.addEventListener(eventName, blockBrowserGesture);
+  });
   window.addEventListener('resize', resize, { passive: true });
-  window.addEventListener('contextmenu', (e) => e.preventDefault());
 
   ui.bestStart.textContent = best.toLocaleString('zh-CN');
   resize(); draw();
