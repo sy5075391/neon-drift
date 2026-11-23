@@ -11,7 +11,7 @@
     start: $('#start-screen'), pause: $('#pause-screen'), over: $('#gameover-screen'),
     bestStart: $('#best-start'), finalScore: $('#final-score'), finalCombo: $('#final-combo'),
     finalTime: $('#final-time'), newBest: $('#new-best'), resultTitle: $('#result-title'),
-    joystickZone: $('#joystick-zone'), joystickKnob: $('#joystick-knob'),
+    joystickZone: $('#joystick-zone'), joystickBase: $('#joystick-base'), joystickKnob: $('#joystick-knob'),
     dashButton: $('#dash-btn'), dashRing: $('#dash-ring')
   };
 
@@ -360,7 +360,11 @@
 
   function handlePointerDown(event) {
     if (state !== 'playing' || input.active) return;
+    event.preventDefault();
     input.active = true; input.id = event.pointerId; input.sx = event.clientX; input.sy = event.clientY; input.dx = 0; input.dy = 0;
+    ui.joystickBase.style.left = `${input.sx}px`;
+    ui.joystickBase.style.top = `${input.sy}px`;
+    ui.joystickBase.classList.add('active');
     ui.joystickZone.setPointerCapture?.(event.pointerId);
   }
 
@@ -372,13 +376,14 @@
 
   function releaseInput(event) {
     if (event && event.pointerId !== input.id) return;
-    input.active=false;input.id=null;input.dx=0;input.dy=0;ui.joystickKnob.style.transform='translate(0,0)';
+    input.active=false;input.id=null;input.dx=0;input.dy=0;ui.joystickKnob.style.transform='translate(0,0)';ui.joystickBase.classList.remove('active');
   }
 
   ui.joystickZone.addEventListener('pointerdown', handlePointerDown);
   ui.joystickZone.addEventListener('pointermove', handlePointerMove);
   ui.joystickZone.addEventListener('pointerup', releaseInput);
   ui.joystickZone.addEventListener('pointercancel', releaseInput);
+  ui.joystickZone.addEventListener('lostpointercapture', releaseInput);
   ui.dashButton.addEventListener('pointerdown', (event) => { event.preventDefault(); dash(); });
   $('#start-btn').addEventListener('click', startGame);
   $('#restart-btn').addEventListener('click', startGame);
