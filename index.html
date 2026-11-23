@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#060815" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>霓虹漂移</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="game-shell" aria-label="霓虹漂移游戏">
+      <canvas id="game" aria-label="游戏区域"></canvas>
+
+      <section id="hud" class="hud hidden" aria-live="polite">
+        <div class="score-block">
+          <span class="eyebrow">得分</span>
+          <strong id="score">0</strong>
+        </div>
+        <div id="combo-wrap" class="combo-wrap">
+          <span id="combo">×1</span>
+          <div class="combo-track"><i id="combo-fill"></i></div>
+        </div>
+        <button id="pause-btn" class="icon-button" aria-label="暂停">Ⅱ</button>
+      </section>
+
+      <div id="status-pill" class="status-pill hidden" aria-live="polite"></div>
+
+      <section id="controls" class="controls hidden" aria-label="触控操作">
+        <div id="joystick-zone" class="joystick-zone" aria-label="拖动移动">
+          <div id="joystick-base" class="joystick-base"><i id="joystick-knob"></i></div>
+          <span>拖动移动</span>
+        </div>
+        <button id="dash-btn" class="dash-button" aria-label="冲刺">
+          <span>冲刺</span>
+          <i id="dash-ring"></i>
+        </button>
+      </section>
+
+      <section id="start-screen" class="screen active">
+        <div class="brand-mark" aria-hidden="true"><i></i><b></b><em></em></div>
+        <p class="kicker">NEON DRIFT</p>
+        <h1>霓虹漂移</h1>
+        <p class="tagline">穿过追踪者，收集每一道光。</p>
+        <div class="how-to">
+          <div><span class="gesture drag"></span><p><b>右侧拖动</b><small>控制移动方向</small></p></div>
+          <div><span class="gesture tap"></span><p><b>点击冲刺</b><small>短暂无敌穿越危险</small></p></div>
+        </div>
+        <button id="start-btn" class="primary-button">开始漂移</button>
+        <p class="best-line">最高纪录 <strong id="best-start">0</strong></p>
+      </section>
+
+      <section id="pause-screen" class="screen compact" aria-hidden="true">
+        <p class="kicker">BREATH</p>
+        <h2>暂停中</h2>
+        <p>光还在等你。</p>
+        <button id="resume-btn" class="primary-button">继续游戏</button>
+        <button id="restart-pause-btn" class="text-button">重新开始</button>
+      </section>
+
+      <section id="gameover-screen" class="screen compact" aria-hidden="true">
+        <p class="kicker">RUN COMPLETE</p>
+        <h2 id="result-title">漂移结束</h2>
+        <div class="result-score"><span>本局得分</span><strong id="final-score">0</strong></div>
+        <div class="result-row">
+          <span>最高连击 <b id="final-combo">0</b></span>
+          <span>生存时间 <b id="final-time">0:00</b></span>
+        </div>
+        <p id="new-best" class="new-best hidden">新的最高纪录</p>
+        <button id="restart-btn" class="primary-button">再来一局</button>
+      </section>
+
+      <section id="rotate-screen" class="rotate-screen" aria-hidden="true">
+        <div class="phone-icon"><i></i></div>
+        <h2>请竖屏游玩</h2>
+        <p>竖屏能获得最佳操控体验</p>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
